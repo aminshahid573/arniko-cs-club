@@ -2,180 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Signup Form with Firebase</title>
-    <link rel="stylesheet" href="./style.css">
-    <style>
-        /* Additional CSS for Snackbar */
-        .snackbar {
-            visibility: hidden;
-            /* Hidden by default */
-            min-width: 250px;
-            /* Set a default minimum width */
-            margin-left: -125px;
-            /* Divide value of min-width by 2 */
-            background-color: #333;
-            /* Black background color */
-            color: #fff;
-            /* White text color */
-            text-align: center;
-            /* Centered text */
-            border-radius: 2px;
-            /* Rounded corners */
-            padding: 16px;
-            /* Padding */
-            position: fixed;
-            /* Sit on top of the screen */
-            z-index: 1;
-            /* Add a z-index if needed */
-            left: 50%;
-            /* Center the snackbar */
-            bottom: 30px;
-            /* 30px from the bottom */
-        }
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation Bar with Search Box</title>
+    <link rel="stylesheet" href="home-style.css" />
+    <!-- Unicons CSS -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <script src="home-script.js" defer></script>
 
-        .show {
-            visibility: visible;
-            /* Show the snackbar */
-            /* Add animation: Take 0.5 seconds to fade in and out the snackbar */
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
-
-        /* Animations */
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
-
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
-
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
-    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
 </head>
 
 <body>
-    <section>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span><span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
-        <div class="signin">
-            <div class="content">
-                <h2>Sign Up</h2>
-                <div class="form">
-                    <div class="inputBox">
-                        <input type="text" id="name" required> <i>Name</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="text" id="class" required> <i>Class</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="text" id="section" required> <i>Section</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="email" id="email" required> <i>Email</i>
-                    </div>
-                    <div class="inputBox">
-                        <input type="password" id="password" required> <i>Password</i>
-                    </div>
-                    <div class="links"> <a href="#">Forgot Password?</a> <a href="login.html">Signin</a>
+    <nav class="nav">
+        <i class="uil uil-bars navOpenBtn"></i>
+        <a href="#" class="logo">Arniko CS Club</a>
 
-                    </div>
-                    <div class="inputBox">
-                        <input type="submit" value="Sign Up" id="signUpButton">
-                    </div>
-                </div>
-            </div>
+        <ul class="nav-links">
+            <i class="uil uil-times navCloseBtn"></i>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li id="loginLink" style="display: block;" class="active"><a href="login.html" class="active">Log In</a></li>
+            <li id="logoutButton" style="display: none;"><button class="logout-btn">Logout</button></li>
+        </ul>
+
+        <i class="uil uil-search search-icon" id="searchIcon"></i>
+
+        <div class="search-box">
+            <i class="uil uil-search search-icon"></i>
+            <input type="text" placeholder="Search here..." />
         </div>
-    </section>
+    </nav>
 
-    <!-- Snackbar Container -->
-    <div id="snackbar" class="snackbar"></div>
+    <div class="user-data" id="user-data">
+        <table border="1px" p>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="user-data-body">
+            </tbody>
+        </table>
+    </div>
 
-    <!-- Firebase SDK -->
+    <div id="snackbar"></div>
+
     <script type="module">
-        // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Your web app's Firebase configuration
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBkUEJyHkTu5lSSo53fK-ilI_elwc3frcY",
             authDomain: "arniko-1a977.firebaseapp.com",
@@ -191,48 +79,67 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Function to display snackbar notification
-        function showSnackbar(message) {
-            var snackbar = document.getElementById("snackbar");
+        const showSnackbar = (message) => {
+            const snackbar = document.getElementById('snackbar');
             snackbar.textContent = message;
-            snackbar.classList.add("show");
-            setTimeout(function () { snackbar.classList.remove("show"); }, 3000);
-        }
+            snackbar.className = 'show';
+            setTimeout(() => {
+                snackbar.className = snackbar.className.replace('show', '');
+            }, 3000);
+        };
 
-        // Add event listener to the signup button
-        document.getElementById("signUpButton").addEventListener("click", async function () {
-            var name = document.getElementById("name").value;
-            var userClass = document.getElementById("class").value;
-            var section = document.getElementById("section").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+        const loadUserData = async (user) => {
+            const userDataBody = document.getElementById('user-data-body');
+            userDataBody.innerHTML = '';
 
             try {
-                // Sign up the user using Firebase's createUserWithEmailAndPassword method
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+                const userDocRef = doc(db, 'users', user.uid);
+                const userDocSnap = await getDoc(userDocRef);
 
-                // Send verification email
-                await sendEmailVerification(user);
-
-                // Save additional user data in Firestore
-                await setDoc(doc(db, "users", user.uid), {
-                    name: name,
-                    class: userClass,
-                    section: section,
-                    email: email,
-                    status: "user"
-                });
-
-                showSnackbar("Verification email sent. Please check your inbox.");
-
-                // Redirect to login page
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 3000);
+                if (userDocSnap.exists()) {
+                    const userData = userDocSnap.data();
+                    const row = `
+                        <tr>
+                            <td>${userData.name}</td>
+                            <td>${userData.class}</td>
+                            <td>${userData.section}</td>
+                            <td>${userData.email}</td>
+                            <td>${userData.status}</td>
+                        </tr>
+                    `;
+                    userDataBody.innerHTML += row;
+                } else {
+                    console.log('No such document!');
+                    showSnackbar('No user data found');
+                }
             } catch (error) {
-                // Show an error message
-                alert(error.message);
+                console.error('Error fetching user data:', error);
+                showSnackbar('Failed to fetch user data');
+            }
+        };
+
+        // Check authentication state
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log('User is signed in:', user.uid);
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('logoutButton').style.display = 'block';
+                loadUserData(user);
+            } else {
+                console.log('No user signed in');
+                document.getElementById('loginLink').style.display = 'block';
+                document.getElementById('logoutButton').style.display = 'none';
+            }
+        });
+
+        // Logout functionality
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.replace('register.html');
+            } catch (error) {
+                console.error('Error signing out:', error);
             }
         });
     </script>
